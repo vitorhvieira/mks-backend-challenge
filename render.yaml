@@ -1,39 +1,39 @@
 # Exported from Render on 2024-06-07T22:09:27Z
 databases:
-- name: postgres-movies
-  databaseName: movies_b7np
-  user: movies_b7np_user
-  plan: free
-  region: oregon
-  ipAllowList:
-  - source: 0.0.0.0/0
-    description: everywhere
-  postgresMajorVersion: "16"
+  - name: postgres-movies
+    databaseName: movies_b7np
+    user: movies_b7np_user
+    plan: free
+    region: oregon
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+    postgresMajorVersion: '16'
 services:
-- type: web
-  name: mks-backend-challenge
-  runtime: docker
-  repo: https://github.com/vitorhvieira/mks-backend-challenge
-  plan: free
-  envVars:
-  - key: REDIS_URL
-    fromService:
-      name: redis-movies
-      type: redis
-      property: hostport
-  - key: DATABASE_URL
-    fromDatabase:
-      name: postgres-movies
-      property: connectionString
-  - key: SECRET_KEY
-    sync: false
-  region: oregon
-  dockerContext: .
-  dockerfilePath: ./Dockerfile
-- type: redis
-  name: redis-movies
-  plan: free
-  region: oregon
-  maxmemoryPolicy: allkeys-lru
-  ipAllowList: []
-version: "1"
+  - type: web
+    name: mks-backend-challenge
+    runtime: docker
+    repo: https://github.com/vitorhvieira/mks-backend-challenge
+    plan: free
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          name: redis-movies
+          type: redis
+          property: port
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres-movies
+          property: connectionString
+      - key: SECRET_KEY
+        sync: false
+    region: oregon
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+  - type: redis
+    name: redis-movies
+    plan: free
+    region: oregon
+    maxmemoryPolicy: allkeys-lru
+    ipAllowList: []
+version: '1'
