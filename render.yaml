@@ -16,11 +16,6 @@ services:
     repo: https://github.com/vitorhvieira/mks-backend-challenge
     plan: free
     envVars:
-      - key: REDIS_URL
-        fromService:
-          name: redis-movies
-          type: redis
-          property: port
       - key: DATABASE_URL
         fromDatabase:
           name: postgres-movies
@@ -30,10 +25,4 @@ services:
     region: oregon
     dockerContext: .
     dockerfilePath: ./Dockerfile
-  - type: redis
-    name: redis-movies
-    plan: free
-    region: oregon
-    maxmemoryPolicy: allkeys-lru
-    ipAllowList: []
 version: '1'
