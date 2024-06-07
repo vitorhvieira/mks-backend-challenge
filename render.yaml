@@ -1,15 +1,19 @@
+# Exported from Render on 2024-06-07T21:51:41Z
+databases:
+  - name: postgres-movies
+    databaseName: movies_b7np
+    user: movies_b7np_user
+    plan: free
+    region: oregon
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+    postgresMajorVersion: '16'
 services:
-  - type: web
-    env: node
-    name: mks-backend-challenge
-    repo: https://github.com/vitorhvieira/mks-backend-challenge
-    buildCommand: npm install && npm run build
-    startCommand: npm run start:prod
-    envVars:
-      - key: DATABASE_URL
-        value: ${DATAVASE_URL}
-      - key: REDIS_URL
-        value: ${REDIS_URL}
-      - key: SECRET_KEY
-        value: ${SECRET_KEY}
-    autoDeploy: true
+  - type: redis
+    name: redis-movies
+    plan: free
+    region: oregon
+    maxmemoryPolicy: allkeys-lru
+    ipAllowList: []
+version: '1'
