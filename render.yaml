@@ -1,28 +1,48 @@
-# Exported from Render on 2024-06-07T22:09:27Z
+# Exported from Render on 2024-06-07T23:09:04Z
 databases:
-  - name: postgres-movies
-    databaseName: movies_b7np
-    user: movies_b7np_user
-    plan: free
-    region: oregon
-    ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-    postgresMajorVersion: '16'
+- name: postgres-movies
+  databaseName: movies_b7np
+  user: movies_b7np_user
+  plan: free
+  region: oregon
+  ipAllowList:
+  - source: 0.0.0.0/0
+    description: everywhere
+  postgresMajorVersion: "16"
 services:
-  - type: web
-    name: mks-backend-challenge
-    runtime: docker
-    repo: https://github.com/vitorhvieira/mks-backend-challenge
-    plan: free
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: postgres-movies
-          property: connectionString
-      - key: SECRET_KEY
-        sync: false
-    region: oregon
-    dockerContext: .
-    dockerfilePath: ./Dockerfile
-version: '1'
+- type: web
+  name: mks-backend-challenge
+  runtime: docker
+  repo: https://github.com/vitorhvieira/mks-backend-challenge
+  plan: free
+  envVars:
+  - key: REDIS_PASSWORD
+    sync: false
+  - key: REDIS_PORT
+    sync: false
+  - key: SECRET_KEY
+    sync: false
+  - key: REDIS_HOST
+    sync: false
+  - key: DB_USER
+    sync: false
+  - key: DB_PORT
+    sync: false
+  - key: DB_PASS
+    fromDatabase:
+      name: postgres-movies
+      property: password
+  - key: DB_HOST
+    fromDatabase:
+      name: postgres-movies
+      property: host
+  - key: DB_DATABASE
+    sync: false
+  - key: DATABASE_URL
+    fromDatabase:
+      name: postgres-movies
+      property: connectionString
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+version: "1"
