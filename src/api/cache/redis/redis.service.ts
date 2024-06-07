@@ -6,10 +6,7 @@ export class RedisService {
   private readonly redisClient: Redis;
 
   constructor() {
-    this.redisClient = new Redis({
-      host: process.env.REDIS_HOST,
-      port: Number(process.env.REDIS_PORT),
-    });
+    this.redisClient = new Redis(process.env.REDIS_URL);
   }
 
   async get(key: string): Promise<string> {
