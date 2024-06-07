@@ -5,6 +5,6 @@
   "logging": true,
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "ssl": {
-    "rejectUnauthorized": false
+    "rejectUnauthorized": true
   }
 }
