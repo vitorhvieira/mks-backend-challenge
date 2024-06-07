@@ -12,6 +12,4 @@ services:
         value: ${REDIS_URL}
       - key: SECRET_KEY
         value: ${SECRET_KEY}
-    regions:
-      - oregon
     autoDeploy: true
